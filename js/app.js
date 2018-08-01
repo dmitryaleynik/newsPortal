@@ -40,11 +40,19 @@ class App extends React.Component {
     })
   }
 
+  addArticle(article)  {
+    let nextNews = this.state.news;
+      nextNews.push(article);
+      this.setState({
+        news: nextNews
+      });
+  }
+
   render() {
     return (
       <div className='app'>
-        <NewArticleForm/>
-        <News news={this.state.news} />
+        <NewArticleForm onaddArticle={this.addArticle.bind(this)}/>
+        <News news={this.state.news}/>
       </div>
     );
   }
@@ -199,7 +207,7 @@ class NewArticleForm extends React.Component {
     });
     
 
-    window.ee.emit('News.add', newArticle);
+    this.props.onaddArticle(newArticle);
   }
  
 }
